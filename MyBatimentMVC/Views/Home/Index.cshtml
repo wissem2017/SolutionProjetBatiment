@@ -1,0 +1,210 @@
+﻿@model ListBatimentViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<!-- Header -->
+<header id="header">
+    <div class="intro">
+        <div class="overlay">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2 intro-text">
+                        <h1>
+                            Construction & rénovation
+                        </h1>
+                        <p>
+                            Découvrez une nouvelle définition de la construction et rénovation moderne.<br />
+                            <b>Société Bâtiment</b> est votre partenaire pour tous les travaux de construction et rénovation à Paris et partout au France
+                        </p>
+                        <a href="#about" class="btn btn-custom btn-lg page-scroll">Encore plus</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- Get Touch Section -->
+<div id="get-touch">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-md-6 col-md-offset-1">
+                <h3>Coût de votre projet de rénovation domiciliaire</h3>
+                <p>Commencez dès aujourd'hui et remplissez notre formulaire pour demander votre estimation gratuite</p>
+            </div>
+            <div class="col-xs-12 col-md-4 text-center"><a href="#contact" class="btn btn-custom btn-lg page-scroll">Estimation gratuite</a></div>
+        </div>
+    </div>
+</div>
+<!-- About Section -->
+<div id="about">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-md-6"> <img src="~/img/@Model.Owner.Image" class="img-responsive" alt=""> </div>
+            <div class="col-xs-12 col-md-6">
+                <div class="about-text">
+                    <h2>Qui nous sommes</h2>
+                    <p>Une grande expertises et un savoir-faire forgés par plus de XX ans d'expérience dans le secteur de construction à Paris et partout au France, l'entreprise <b>XXXXXX</b> est un Leader dans le secteur de la construction, rénovation et tous les corps d'état (Gros oeuvre et second oeuvre)..</p>
+                    <h3>Pourquoi nous choisir?</h3>
+                    <div class="list-style">
+                        <div class="col-lg-6 col-sm-6 col-xs-12">
+                            <ul>
+                                <li>Des années d'expérience</li>
+                                <li>Entièrement assuré</li>
+                                <li>Experts en contrôle des coûts</li>
+                                <li>Garantie de satisfaction à 100%</li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-6 col-sm-6 col-xs-12">
+                            <ul>
+                                <li>Consultation gratuite</li>
+                                <li>Clients satisfaits</li>
+                                <li>Gestion de projet</li>
+                                <li>Prix abordable</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Services Section -->
+<div id="services">
+    <div class="container">
+        <div class="section-title">
+            <h2>Nos services</h2>
+            @if (Context.Session.GetString("token") != null)
+            {
+                <a class="btn btn-primary" asp-controller="ServiceItem" asp-action="Index">Liste des services</a>
+            }
+        </div>
+
+        <div class="row">
+            @foreach (ServiceItem item in Model.ListeService)
+            {
+
+                <div class="col-md-4">
+                    <div class="service-media"> <img src="~/img/services/@item.Image" alt=" "> </div>
+                    <div class="service-desc">
+                        <h3>@item.ServiceName</h3>
+                        <p>@item.Description</p>
+                    </div>
+                </div>
+            }
+        </div>
+
+
+    </div>
+</div>
+<!-- Gallery Section -->
+<div id="portfolio">
+    <div class="container">
+        <div class="section-title">
+            <h2>Notre travail</h2>
+            @if (Context.Session.GetString("token") != null)
+            {
+                <a class="btn btn-primary" asp-controller="ProjectItem" asp-action="Index">Liste Des Projects</a>
+            }
+        </div>
+        <div class="row">
+            @foreach (ProjectItem item in Model.ListProject)
+            {
+                <div class="portfolio-items">
+                    <div class="col-sm-6 col-md-4 col-lg-4">
+                        <div class="portfolio-item">
+                            <div class="hover-bg">
+
+                                <a href="~/img/projects/@item.Image" title="@item.ProjectName" data-lightbox-gallery="gallery1">
+                                    <div class="hover-text">
+                                        <h4>@item.ProjectName</h4>
+                                    </div>
+
+                                    <img src="~/img/projects/@item.Image" class="img-responsive" alt="@item.ProjectName" style="width:400px; height:200px;">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<!-- Contact Section -->
+<div id="contact">
+    <div class="container">
+        <div class="col-md-8">
+            <div class="row">
+                <div class="section-title">
+                    <h2>Entrer en contact</h2>
+                    <p>Veuillez remplir le formulaire ci-dessous pour nous envoyer un e-mail et nous vous répondrons dans les plus brefs délais.</p>
+                </div>
+                <form asp-action="Index">
+                    @*<form name="sentMessage" id="contactForm" novalidate>*@
+                    <div class="row">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input type="email" asp-for="To" class="form-control" placeholder="Email" required="required">
+                                <p class="help-block text-danger"></p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input type="text" asp-for="Subject" class="form-control" placeholder="Objet" required="required">
+                                <p class="help-block text-danger"></p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <textarea asp-for="Body" class="form-control" rows="4" placeholder="Message" required></textarea>
+                        <p class="help-block text-danger"></p>
+                    </div>
+                    <div id="success"></div>
+                    <button type="submit" class="btn btn-custom btn-lg">Envoyer le message</button>
+                  <h5>@ViewBag.Message</h5>
+
+                </form>
+            </div>
+        </div>
+        <div class="col-md-3 col-md-offset-1 contact-info">
+            <div class="contact-item">
+                <h4>Informations de contact</h4>
+                <p>
+                    <span>Adresse</span>......................,<br>
+                    ..................., Paris
+                </p>
+            </div>
+            <div class="contact-item">
+                <p><span>Téléphone</span> 00 00 00 00 00 00 </p>
+            </div>
+            <div class="contact-item">
+                <p><span>Email</span> xxxxx@xxxx.xxx</p>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="row">
+                <div class="social">
+                    <ul>
+                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                        <li><a href="#"><i class="fa fa-youtube"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+
+
+    @* <script type="text/javascript" src="~/js/SmoothScroll.js"></script>*@
+    <script type="text/javascript" src="~/js/nivo-lightbox.js"></script>
+    <script type="text/javascript" src="~/js/jqBootstrapValidation.js"></script>
+   @* <script type="text/javascript" src="~/js/contact_me.js"></script>*@
+    <script type="text/javascript" src="~/js/main.js"></script>
+}

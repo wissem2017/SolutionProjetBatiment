@@ -1,0 +1,51 @@
+﻿@model IEnumerable<ServiceItem>
+
+@{
+    ViewData["Title"] = "Liste Des Services";
+}
+
+<div style="margin:160px;">
+    <h2>Liste Des Projets</h2>
+
+    <p>
+        <a class="btn btn-primary" asp-controller="ServiceItem" asp-action="AddService">Add Service</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th style="width:100px;">
+                    @Html.DisplayNameFor(model => model.ServiceName)
+                </th>
+                <th style="width:400px;">
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th style="width:100px;">
+                    @Html.DisplayNameFor(model => model.Image)
+                </th>
+                <th style="width:150px;"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ServiceName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        <img src="~/img/services/@item.Image" class="img-thumbnail" style="width:100px; height:100px;" />
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-controller="ServiceItem" asp-route-id="@item.Id"> Edit</a> |
+                        <a asp-action="Details" asp-controller="ServiceItem" asp-route-id="@item.Id">Détail</a> |
+                        <a asp-action="Delete" asp-controller="ServiceItem" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>

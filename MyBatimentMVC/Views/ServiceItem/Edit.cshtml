@@ -1,0 +1,73 @@
+﻿@model ServiceItemViewModel
+
+@{
+    ViewData["Title"] = "Éditer Service";
+}
+
+<div style="margin:160px;">
+    <h2>Mise à jour projet</h2>
+
+    <hr />
+    <div class="row">
+        <div class="col-md-6">
+            <form asp-action="Edit" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="ServiceName" class="control-label"></label>
+                    <input asp-for="ServiceName" class="form-control" />
+                    <span asp-validation-for="ServiceName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label"></label>
+                    <textarea asp-for="Description" class="form-control" style="width: 100%;" rows="7">Entrez la description ici ...</textarea>
+
+                    @*<input asp-for="Description" class="form-control" />*@
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Image" class="control-label" id="LImage"></label>
+                    <input type="file" asp-for="File" class="form-control" />
+                    <span asp-validation-for="Image" class="text-danger"></span>
+                </div>
+                <input type="hidden" asp-for="Id" />
+                <div class="form-group">
+                    <input type="submit" value="Sauvegarder" class="btn btn-success" />
+                    <a asp-action="Index" class="btn btn-default">Retour à la liste</a>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-2">
+
+        </div>
+        <div class="col-md-4">
+            <img id="NewImage" style="width:300px;" src="~/img/services/@Model.Image" class="img-thumbnail" />
+        </div>
+    </div>
+
+
+
+</div>
+
+
+@section Scripts {
+
+
+    <script>
+
+        $('input[type=file]').change(function () {
+
+            var url = $(this).val();
+            $('#LImage').html(url.split("\\").pop());
+            var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+            if ((ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg")) {
+
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#NewImage').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+
+    </script>
+}

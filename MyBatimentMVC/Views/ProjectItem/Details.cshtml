@@ -1,0 +1,39 @@
+﻿@model ProjectItemViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div style="margin:160px;">
+    <div>
+
+        <h2>Détail Projet</h2>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.ProjectName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ProjectName)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Image)
+            </dt>
+            <dd>
+                <img src="~/img/projects/@Model.Image" class="img-thumbnail" style="width:200px; height:200px;" />
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <a asp-action="Edit" class="btn btn-success" asp-route-id="@Model.Id">Éditer</a> |
+        <a asp-action="Index" class="btn btn-default">Retour à la liste</a>
+    </div>
+</div>
+
+

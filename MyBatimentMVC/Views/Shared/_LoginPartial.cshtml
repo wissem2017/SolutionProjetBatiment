@@ -1,0 +1,22 @@
+﻿@if (Context.Session.GetString("token") == null)
+{
+    @*<li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+    </li>*@
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+    </li>
+}
+else
+{
+    <form asp-controller="Account" asp-action="LogOff" method="post" id="logoutForm" class="navbar-right">
+        <ul class="nav navbar-nav navbar-right">
+            <li class="nav-item">
+                <a  class="page-scroll" asp-controller="Account" asp-action="Edit"  asp-route-id="@Context.Session.GetString("Id")">@Context.Session.GetString("username")</a>
+            </li>
+            <li>
+                <a asp-controller="Account" asp-action="LogOff" class="page-scroll ">Se déconnecter</a>
+            </li>
+        </ul>
+    </form>
+}
